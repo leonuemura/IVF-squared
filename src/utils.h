@@ -23,9 +23,9 @@ std::vector<std::unordered_map<std::string, std::vector<int>>> buildClusterRefer
 
 void buildKnnGraph(float* data, const std::vector<int>& indices, std::ofstream& outFile, const int& d, const int& K_NEIGHBORS);
 
-static inline __m128 masked_read (int d, const float *x);
+static inline __m128 masked_read(int d, const float *x);
 
-float fvec_L2sqr_avx512 (const float *x, const float *y, size_t d);
+float calculateL2Distance(const float *x, const float *y, size_t d);
 
 void greedySearch(float* query, float* data, const std::unordered_map<int, std::vector<int>>& knnGraph, int startNodeId, const int& K_SEARCH, int& d, std::multimap<float, int>& nodeDistances);
 
