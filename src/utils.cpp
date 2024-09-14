@@ -114,7 +114,7 @@ static inline __m128 masked_read (int d, const float *x)
 }
 
 
-float fvec_L2sqr_avx512 (const float *x, const float *y, size_t d){
+float calculateL2Distance (const float *x, const float *y, size_t d){
     __m512 msum1 = _mm512_setzero_ps();
 
     while (d >= 16) {
@@ -165,7 +165,7 @@ void greedySearch(float* query, float* data, const std::unordered_map<int, std::
     std::vector<int> result;
     std::unordered_map<int, bool> visitedMap;
     float tau = std::numeric_limits<float>::infinity();
-    float l = fvec_L2sqr_avx512(query, data + startNodeId * d, d);
+    float l = calculateL2Distance(query, data + startNodeId * d, d);
     Candidate.emplace(l, startNodeId);
     Candidate.emplace(l, startNodeId);
     visitedMap[startNodeId] = true;
@@ -184,7 +184,7 @@ void greedySearch(float* query, float* data, const std::unordered_map<int, std::
                 std::multimap<float, int>::reverse_iterator i = Candidate.rbegin();
                 tau = i -> first;
             }
-            float neighborDistance = fvec_L2sqr_avx512(query, data + neighborId * d, d);
+            float neighborDistance = calculateL2Distance(query, data + neighborId * d, d);
             if (neighborDistance < tau) {
                 Candidate.emplace(neighborDistance, neighborId);
                 if(Candidate.size() >  K_SEARCH){
@@ -203,7 +203,7 @@ void greedySearch(float* query, float* data, const std::unordered_map<int, std::
 std::vector<int> findClosestClusters(float* query, float* cluster, int& search_limit, int& d, int& nc) {
     std::multimap<float, int> clusterDistances;
     for (int i = 0; i < nc; i++) {
-        float distance = fvec_L2sqr_avx512(query, cluster + i * d, d);
+        float distance = calculateL2Distance(query, cluster + i * d, d);
         clusterDistances.emplace(distance, i);
     }
     auto it = clusterDistances.begin();
@@ -225,7 +225,7 @@ void findClosestNodes(float* query, float* data, const std::string& bitKey, std:
                 if (knnGraphIt != knnGraphs[clusterId].end()) {
                     greedySearch(query, data, knnGraphs[clusterId][bitKey], node, K_SEARCH, d, nodeDistances);
                 } else {
-                    float distance = fvec_L2sqr_avx512(query, data + node * d, d);
+                    float distance = calculateL2Distance(query, data + node * d, d);
                     nodeDistances.emplace(distance, node);
                 }
             }
