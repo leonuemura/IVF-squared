@@ -30,10 +30,10 @@ cd src
 g++ -O3 -o build build.cpp io.cpp utils.cpp -lfaiss -mavx512f -march=native
 ./build ../dataset/baseset.txt index d nc th kg
 ```
-- **d**　is the dimensionality of the data vectors.
+- **d** is the dimensionality of the data vectors.
 - **nc** controls the number of clusters in clustering.
-- **th**　controls the threshold for the minimum number of data points matching a specific attribute combination in each cluster required to create a graph.
-- **kg**　controls the degree of each node when creating the graph.
+- **th** controls the threshold for the minimum number of data points matching a specific attribute combination in each cluster required to create a graph.
+- **kg** controls the degree of each node when creating the graph.
 
 #### Searching Index
 ```sh
@@ -41,7 +41,7 @@ cd src
 g++ -O3 -o search search.cpp io.cpp utils.cpp -lfaiss -mavx512f -march=native
 ./search ../dataset/baseset.txt ../dataset/queryset.txt index ../dataset/groundtruthset.txt d nc ks np
 ```
-- **d**　is the dimensionality of the vector data.
+- **d** is the dimensionality of the vector data.
 - **nc** is the same number as nc during the build.
-- **ks**　controls the number of searching result.
-- **nc**　controls the number of searching clusters, which affects the recall.
+- **ks** controls the number of searching result.
+- **nc** controls the number of searching clusters, which affects the recall.
