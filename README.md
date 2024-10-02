@@ -1,6 +1,6 @@
-# IVF<sup>2</sup>
+# IVF++
 ## Introduction
-This framework provides a flexible and efficient solution for approximate nearest neighbor search (ANNS) on high-dimensional data under attribute constraint. We cluster the data, create an inverted file, and further create an inverted file for each cluster based on the attribute values. This implementation is based on the algorithm described in our paper titled　IVF<sup>2</sup>: A Flexible and Efficient Algorithm for Approximate Nearest Neighbor Search under Attribute Constraint.
+This framework provides a flexible and efficient solution for approximate nearest neighbor search (ANNS) on high-dimensional data under attribute constraint. We cluster the data, create an inverted file, and further create an inverted file for each cluster based on the attribute values. This implementation is based on the algorithm described in our paper titled　IVF++: A Flexible and Efficient Algorithm for Approximate Nearest Neighbor Search under Attribute Constraint.
 
 ## How to use
 ### 1. Making index and dataset folders
